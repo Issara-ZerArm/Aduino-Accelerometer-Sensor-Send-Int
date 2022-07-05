@@ -75,9 +75,9 @@ void loop() {
       Serial.print(" xSensor ");
       Serial.print(xBLE);
       Serial.print(" ySensor ");
-      Serial.print(xBLE);
+      Serial.print(yBLE);
       Serial.print(" zSensor ");
-      Serial.print(xBLE);
+      Serial.print(zBLE);
  
       Serial.println("");
 
