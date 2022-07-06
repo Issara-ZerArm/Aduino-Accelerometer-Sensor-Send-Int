@@ -72,21 +72,17 @@ void loop() {
       yBLE = ySensor ;
       zBLE = zSensor ;
 
-      Serial.print(" xSensor ");
+      Serial.print(" ");
       Serial.print(xBLE);
-      Serial.print(" ySensor ");
+      Serial.print(" ");
       Serial.print(yBLE);
-      Serial.print(" zSensor ");
+      Serial.print("  ");
       Serial.print(zBLE);
  
-      Serial.println("");
-
       XChar.writeValue(xBLE);
       YChar.writeValue(yBLE);
       ZChar.writeValue(zBLE);
-
-      Serial.println("");
-     
+      
       delay(50);
     }    
   }       
