@@ -8,9 +8,21 @@ float xSensor = 0;
 float ySensor = 0;
 float zSensor = 0;
 
-int xBLE = xSensor * 100;
-int yBLE = ySensor * 100;
-int zBLE = zSensor * 100;
+int xx100;
+int yx100;
+int zx100;
+
+int powx;
+int powy;
+int powz;
+
+int sumxyz;
+
+int xBLE;
+int yBLE;
+int zBLE;
+
+int sumsqrt;
 
 BLEService SensorService("1101");
 BLEUnsignedIntCharacteristic XChar("2101", BLERead | BLENotify);
@@ -68,16 +80,24 @@ void loop() {
         IMU.readGyroscope(xSensor, ySensor, zSensor);
       }
 
-      xBLE = xSensor ;
-      yBLE = ySensor ;
-      zBLE = zSensor ;
+      xx100 = xSensor ;
+      yx100 = ySensor ;
+      zx100 = zSensor ;
+      
 
-      Serial.print(" ");
-      Serial.print(xBLE);
-      Serial.print(" ");
-      Serial.print(yBLE);
-      Serial.print("  ");
-      Serial.print(zBLE);
+
+      powx = pow(xx100,2);
+      powy = pow(yx100,2);
+      powz = pow(zx100,2);
+
+      sumxyz = (powx + powy + powz); 
+
+      sumsqrt = sqrt(sumxyz);
+
+
+
+      Serial.println(sumsqrt);
+
  
       XChar.writeValue(xBLE);
       YChar.writeValue(yBLE);
