@@ -1,28 +1,13 @@
-
-
 #include <ArduinoBLE.h>
 #include <Arduino_LSM9DS1.h> 
-
 
 float xSensor = 0;
 float ySensor = 0;
 float zSensor = 0;
 
-int xx100;
-int yx100;
-int zx100;
-
-int powx;
-int powy;
-int powz;
-
-int sumxyz;
-
-int xBLE;
-int yBLE;
-int zBLE;
-
-int sumsqrt;
+int xBLE = xSensor * 100;
+int yBLE = ySensor * 100;
+int zBLE = zSensor * 100;
 
 BLEService SensorService("1101");
 BLEUnsignedIntCharacteristic XChar("2101", BLERead | BLENotify);
@@ -33,7 +18,6 @@ BLEUnsignedIntCharacteristic ZChar("2103", BLERead | BLENotify);
 void setup() {
   IMU.begin();  
   Serial.begin(115200); 
-  //while (!Serial);
 
   pinMode(LED_BUILTIN, OUTPUT);
 
@@ -44,7 +28,7 @@ void setup() {
     while (1);
   }
 
-  BLE.setLocalName("Accelerometer BLE");
+  BLE.setLocalName("MOVEALONGBLE"); //Change Name BLE For Qr Scan ***************
   BLE.setAdvertisedService(SensorService);
   SensorService.addCharacteristic(XChar);
   SensorService.addCharacteristic(YChar);
@@ -74,30 +58,22 @@ void loop() {
     
        
     while (central.connected()) {
-    //while(1){
+ 
 
       if (IMU.gyroscopeAvailable()) {
         IMU.readGyroscope(xSensor, ySensor, zSensor);
       }
 
-      xx100 = xSensor ;
-      yx100 = ySensor ;
-      zx100 = zSensor ;
-      
+      xBLE = xSensor ;
+      yBLE = ySensor ;
+      zBLE = zSensor ;
 
-
-      powx = pow(xx100,2);
-      powy = pow(yx100,2);
-      powz = pow(zx100,2);
-
-      sumxyz = (powx + powy + powz); 
-
-      sumsqrt = sqrt(sumxyz);
-
-
-
-      Serial.println(sumsqrt);
-
+      Serial.print("\n");
+      Serial.print(xBLE);
+      Serial.print(", ");
+      Serial.print(yBLE);
+      Serial.print(", ");
+      Serial.print(zBLE);
  
       XChar.writeValue(xBLE);
       YChar.writeValue(yBLE);
