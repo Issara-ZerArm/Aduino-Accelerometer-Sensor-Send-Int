@@ -60,8 +60,8 @@ void loop() {
     while (central.connected()) {
  
 
-      if (IMU.gyroscopeAvailable()) {
-        IMU.readGyroscope(xSensor, ySensor, zSensor);
+      if (IMU.accelerationAvailable()) {
+        IMU.readAcceleration(xSensor, ySensor, zSensor);
       }
 
       xBLE = xSensor ;
